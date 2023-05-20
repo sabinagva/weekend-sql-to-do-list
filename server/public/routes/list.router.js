@@ -20,13 +20,14 @@ listRouter.get('/',(req,res) => {
 
 })
 
-//Post
+//Post server is connecting to database
+//sanitizing the values and storing them in database?
 listRouter.post('/',(req,res) =>{
     const newList = req.body
-    let SqlText = `INSERT INTO "list"("task")
+    let sqlText = `INSERT INTO "list"("task")
                     VALUES($1);`;
     const values = [newList.task]
-    pool.query(SqlText, values)
+    pool.query(sqlText, values)
     .then(result => {
         res.sendStatus(201); //working
     })
@@ -37,3 +38,17 @@ listRouter.post('/',(req,res) =>{
 })
 //PUT 
 //Delete
+listRouter.delete('/:id',(req,res) =>{
+    console.log('in server delete');
+    let idToDelete = req.params.id;
+    let sqlText= `DELETE FROM "list" WHERE "id" = $1;`;
+    pool.query(sqlText, [idToDelete])
+    .then((result) => {
+        console.log('task been deleted', result.rows);
+        res.sendStatus(200);
+    })
+    .catch((error) => {
+        console.log('error with Delete', error);
+        res.sendStatus(500);
+    })
+})

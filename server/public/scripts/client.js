@@ -39,7 +39,8 @@ function renderToDom(response){
     }
 };
 // add function (post)
-// client is posting new data for server to store it
+// client is posting new data entered by users
+//to server so it can store it
 
 addList() {
     console.log('in add list(post function');
@@ -62,6 +63,19 @@ addList() {
 
 
 
-
 //update the list (put)
+
 //delete function (delete)
+function deleteTask(){
+    console.log('in deleteTask function');
+    const idToDelete = $(this).closest('tr').data('id');
+    $.ajax({
+        method: 'DELETE',
+        url: `/list/${idToDelete}`
+    }).then (function(response){
+        console.log('deleting list item is working');
+        getList(); //refreshes the page
+    }).catch(error =>{
+        console.log('error with client delete function');
+    })
+}
