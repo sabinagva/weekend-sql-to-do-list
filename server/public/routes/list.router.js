@@ -24,8 +24,8 @@ listRouter.get('/',(req,res) => {
 //sanitizing the values and storing them in database?
 listRouter.post('/',(req,res) =>{
     const newList = req.body
-    let sqlText = `INSERT INTO "list"("task")
-                    VALUES($1);`;
+    let sqlText = `INSERT INTO "list"("task", "complete")
+                    VALUES($1, $2);`;
     const values = [newList.task]
     pool.query(sqlText, values)
     .then(result => {
@@ -37,6 +37,26 @@ listRouter.post('/',(req,res) =>{
     })
 })
 //PUT 
+listRouter.put('/:id', (req,res) => {
+    console.log('in server put');
+    let idToUpdate = req.params.id
+    let complete = req.body.complete
+    let sqlText = `UPDATE "list" SET "complete" = 'yes'
+                    WHERE "id" = $1;`;
+    if (complete === 'no') {
+        return sqlText
+    }
+    pool.query(sqlText, [idToUpdate])
+    .then(result => {
+        console.log('complete is updated', result.rows);
+        res.send(200);
+    })
+    .catch((error) =>{
+        console.log('failed updating list', error)
+        res.send(500);
+
+    })
+})
 //Delete
 listRouter.delete('/:id',(req,res) =>{
     console.log('in server delete');

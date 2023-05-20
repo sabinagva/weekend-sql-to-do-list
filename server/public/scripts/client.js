@@ -4,7 +4,7 @@ $(document).ready(function(){
  $('#addBtn').on('click', addTask);
  getList();
 $('#viewList').on('click', '.delete-btn', deleteTask); // we are calling tbody since btn is on it
-$('#viewList').on('click', '.complete-btn', updateList);
+$('#viewList').on('click', '.complete-btn', updateTask);
 })
 
 
@@ -42,7 +42,7 @@ function renderToDom(response){
 // client is posting new data entered by users
 //to server so it can store it
 
-addList() {
+function addTask(){
     console.log('in add list(post function');
  let data = {
     task: $('#taskIn').val()
@@ -64,6 +64,24 @@ addList() {
 
 
 //update the list (put)
+function updateTask(){
+    console.log('in updateTask function');
+    idToUpdate= $(this).closest('tr').data('id');
+    let data = {
+
+    }
+    $.ajax({
+        method: 'PUT',
+        url: `/list/${idToUpdate}`
+    }).then(function(response){
+        console.log('update list works', response);
+        getList();
+    
+      }).catch(error=>{
+        console.log('update list is not functioning',error);
+      })
+
+}
 
 //delete function (delete)
 function deleteTask(){
@@ -79,3 +97,4 @@ function deleteTask(){
         console.log('error with client delete function');
     })
 }
+module.exports = listRouter;
