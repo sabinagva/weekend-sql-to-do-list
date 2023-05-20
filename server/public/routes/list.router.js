@@ -21,5 +21,19 @@ listRouter.get('/',(req,res) => {
 })
 
 //Post
+listRouter.post('/',(req,res) =>{
+    const newList = req.body
+    let SqlText = `INSERT INTO "list"("task")
+                    VALUES($1);`;
+    const values = [newList.task]
+    pool.query(SqlText, values)
+    .then(result => {
+        res.sendStatus(201); //working
+    })
+    .catch(error =>{
+        console.log('error in server post', error);
+        res.sendStatus(500); //not working
+    })
+})
 //PUT 
 //Delete

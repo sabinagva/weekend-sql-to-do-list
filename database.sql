@@ -1,7 +1,6 @@
 CREATE TABLE "list"(
     "id" SERIAL,
-    "task" varchar(256),
-    "complete" BOOLEAN
+    "task" varchar(256)
     
 );
 INSERT INTO "list" ("task", "complete")
