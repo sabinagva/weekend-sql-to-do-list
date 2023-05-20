@@ -6,4 +6,4 @@ CREATE TABLE "list"(
 );
 INSERT INTO "list" ("task", "complete")
 VALUES ('Study', TRUE),
-        ('Workout', )
+        ('Workout',False )
