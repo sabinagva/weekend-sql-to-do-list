@@ -45,9 +45,7 @@ listRouter.put('/:id', (req,res) => {
     let complete = req.body.complete
     let sqlText = `UPDATE "list" SET "complete" = 'yes'
                     WHERE "id" = $1;`;
-    if (complete === 'false') {
-        return sqlText
-    }
+    
     pool.query(sqlText, [idToUpdate])
     .then(result => {
         console.log('complete is updated', result.rows);

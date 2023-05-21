@@ -5,6 +5,7 @@ $(document).ready(function(){
  $('#addBtn').on('click', addTask);
 $('#viewList').on('click', '.delete-btn', deleteTask); // we are calling tbody since btn is on it
 $('#viewList').on('click', '.complete-btn', updateComplete);
+
 })
 
 //get function (get)
@@ -33,18 +34,24 @@ function renderToDom(response){
      response.sort((a,b) =>{
         return a.id-b.id
     })
+    //line 39-50 is just js writing html
+    //thats why data('id') is recognizing the data-id in this function
+    //even thought they are in 2 different functions
+    //referencing html and variable is different and in this case
+    //we are referencing html
     for (let list of response) {
         $('#viewList').append(`
         <tr data-id="${list.id}">
         <td>${list.task}</td>
-        <td>${list.complete}</td>
+        <td class="status">${list.complete}</td>
         <td><button class="complete-btn">Complete</button></td>
         <td><button class="delete-btn">DELETE</button></td>
       </tr>
         `)
-        console.log('response', response)
-        //console.log('sorted response', sortedResponse)
+       //console.log('response', response) response is table
+        
     }
+    $('td.status:contains(true)').css({'background-color': '#7ec282'})
     
 };
 
@@ -78,9 +85,6 @@ function updateComplete(){
     console.log('in updateTask function');
     idToUpdate= $(this).closest('tr').data('id');
     $('.complete-row').addClass('yellow-background')
-    let data = {
-
-    }
     
     $.ajax({
         method: 'PUT',
@@ -99,6 +103,9 @@ function updateComplete(){
 function deleteTask(){
     console.log('in deleteTask function');
     const idToDelete = $(this).closest('tr').data('id');
+    const text = $('.cool').html()
+    console.log('text is',text );
+
     $.ajax({
         method: 'DELETE',
         url: `/list/${idToDelete}`
@@ -109,4 +116,4 @@ function deleteTask(){
         console.log('error with client delete function');
     })
 }
-//module.exports = listRouter;
+
