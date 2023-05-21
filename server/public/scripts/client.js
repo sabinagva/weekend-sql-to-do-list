@@ -25,15 +25,25 @@ function getList(){
 //render to dom
 function renderToDom(response){
     $('#viewList').empty();
+    //below function allows us to sort the task so it doesn't 
+    //reorder when we press complete
+    //can we make database do that for us??
+    //bellow function is basically response = response.sort()
+    //but since  .sort is destructive function it doesn't need to be written that way
+     response.sort((a,b) =>{
+        return a.id-b.id
+    })
     for (let list of response) {
         $('#viewList').append(`
         <tr data-id="${list.id}">
         <td>${list.task}</td>
         <td>${list.complete}</td>
-        <td><button id="complete-btn">Complete</button></td>
-        <td><button id="delete-btn">DELETE</button></td>
+        <td><button class="complete-btn">Complete</button></td>
+        <td><button class="delete-btn">DELETE</button></td>
       </tr>
         `)
+        console.log('response', response)
+        //console.log('sorted response', sortedResponse)
     }
 };
 
