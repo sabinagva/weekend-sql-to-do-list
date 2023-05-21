@@ -1,5 +1,5 @@
 //set up exports
-const { REFUSED } = require('dns');
+//const { REFUSED } = require('dns');
 const express = require('express');
 const listRouter = express.Router();
 const pool = require('../modules/pool');
@@ -7,8 +7,8 @@ const pool = require('../modules/pool');
 //Get:server is giving the data client requested
 //but first serer needs to connect to database with pool
 listRouter.get('/',(req,res) => {
-    let SqlText = 'SELECT * FROM "list";';
-    pool.query(SqlText)
+    let sqlText = 'SELECT * FROM "list";';
+    pool.query(sqlText)
     .then(result => {
         //sending the table rows(content) to client
         console.log('result row is',result.rows)
@@ -24,9 +24,11 @@ listRouter.get('/',(req,res) => {
 //sanitizing the values and storing them in database?
 listRouter.post('/',(req,res) =>{
     const newList = req.body
+    
+    console.log('new list is', newList)
     let sqlText = `INSERT INTO "list"("task", "complete")
                     VALUES($1, $2);`;
-    const values = [newList.task]
+    const values = [newList.task,newList.complete]
     pool.query(sqlText, values)
     .then(result => {
         res.sendStatus(201); //working
@@ -72,3 +74,4 @@ listRouter.delete('/:id',(req,res) =>{
         res.sendStatus(500);
     })
 })
+module.exports = listRouter;
