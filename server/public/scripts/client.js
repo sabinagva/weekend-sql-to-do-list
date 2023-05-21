@@ -45,6 +45,7 @@ function renderToDom(response){
         console.log('response', response)
         //console.log('sorted response', sortedResponse)
     }
+    
 };
 
 // add function (post)
@@ -76,9 +77,11 @@ function addTask(){
 function updateComplete(){
     console.log('in updateTask function');
     idToUpdate= $(this).closest('tr').data('id');
+    $('.complete-row').addClass('yellow-background')
     let data = {
 
     }
+    
     $.ajax({
         method: 'PUT',
         url: `/list/${idToUpdate}`

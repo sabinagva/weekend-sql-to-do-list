@@ -7,19 +7,25 @@
     <title>To do list</title>
     <script src="vendors/jquery.js" charset="utf-8"></script>
     <script src="scripts/client.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-    <h1>To do List</h1>
-    <section>
+    <header>
+        <h1 id="head-text">To do List</h1>
+       
+    </header>
+    
+    <section id="input-box">
+        
         <input type="text", id="taskIn" placeholder="task">
         <button type="button", id="addBtn">Add Task</button>
     </section>
     <section>
     <table>
         <thead>
-        <tr>
+        <tr id="tr-text">
             <th>Task</th>
+            <th>Status</th>
             <th>Complete</th>
             <th>Remove</th>
 
