@@ -103,8 +103,7 @@ function updateComplete(){
 function deleteTask(){
     console.log('in deleteTask function');
     const idToDelete = $(this).closest('tr').data('id');
-    const text = $('.cool').html()
-    console.log('text is',text );
+    
 
     $.ajax({
         method: 'DELETE',
