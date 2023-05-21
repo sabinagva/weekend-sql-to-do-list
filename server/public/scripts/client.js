@@ -84,7 +84,7 @@ function addTask(){
 function updateComplete(){
     console.log('in updateTask function');
     idToUpdate= $(this).closest('tr').data('id');
-    $('.complete-row').addClass('yellow-background')
+   
     
     $.ajax({
         method: 'PUT',
