@@ -1,6 +1,7 @@
 
 #head-text {
     color: rgb(242, 131, 149);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 #input-box {
     padding-bottom: 20px;
@@ -14,6 +15,7 @@ html, body {
   body {
     display: flex;
     flex-direction: column;
+    background-color: antiquewhite;
   }
   header {
     height: 8em;
